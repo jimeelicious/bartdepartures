@@ -59,7 +59,7 @@ for dir in soup.find_all('etd'):
 	print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       {} <span style=\'color:#bbb\'>mins</span></div>".format(color,dest,minDisp))
 
 if directions == 0:
-	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no trains running at this time</span></div>")
+	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
 
 #print(apilink)
 print("<br><br><br><br>")
