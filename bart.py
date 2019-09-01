@@ -27,7 +27,7 @@ else:
 	stationCode = "WARM"
 
 #print(stationCode)
-apilink = "http://api.bart.gov/api/etd.aspx?cmd=etd&orig={}&key=MW9S-E7SL-26DU-VV8V".format(stationCode)
+apilink = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig={}&key=MW9S-E7SL-26DU-VV8V".format(stationCode)
 rawdata = urllib.request.urlopen(apilink).read()
 soup = BeautifulSoup(rawdata, "xml")
 station = soup.find('name').text
