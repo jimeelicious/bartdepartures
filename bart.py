@@ -66,7 +66,7 @@ print("<br><br><br><br>")
 
 print("""
 <form id="" name="form" method="get" action="/">
-<select name="station">
+<select name="station" onchange="this.form.submit()">
           <option value="">Select another station...</option>
           <option value="12th">12th St. Oakland City Center</option>
           <option value="16th">16th St. Mission (SF)</option>
@@ -117,7 +117,7 @@ print("""
           <option value="wdub">West Dublin</option>
           <option value="woak">West Oakland</option>
 </select>
- <input type="submit" value="Submit" class="form"></form>
+</form>
 """)
 
 print("</body>")
