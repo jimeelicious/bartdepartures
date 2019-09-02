@@ -2,7 +2,7 @@
 
 # Set API key and default station abbreviation code
 apikey = "MW9S-E7SL-26DU-VV8V"
-defaultstation = "WARM"
+defaultstation = "12th"
 advisory = "yes"
 
 import cgi, cgitb, re, sys
@@ -50,15 +50,15 @@ print("<meta http-equiv='refresh' content='45'>")
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
 print("<meta name='viewport' content='width=device-width, initial-scale=0.70'>")
 print("<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>")
-print("<style>body {background:white; font-family: Arial; color: #222; padding: 0.5em;} .bar {border-left-style: solid; border-left-width: 10px; height: 4em;margin-bottom:0.4em; padding-left:0.8em;} .stationname {font-size:1.8em; font-weight: bold; white-space:pre;} .bsa {background-color: #fff200; font-weight: bold; color: black; padding: 1em; margin: 0.2em;} .subtitle {color: #bbb; font-weight:normal; font-style:italic; font-family: 'Arial Narrow'}</style>")
+print("<style>body {background:white; font-family: Arial; color: #222; padding: 0.5em;} .bar {border-left-style: solid; border-left-width: 10px; height: 4em;margin-bottom:0.4em; padding-left:0.8em;} .stationname {font-size:1.8em; font-weight: bold; white-space:pre;} .bsa {background-color: #fff200; color: black; padding: 0.5em 1em; padding-bottom: 0.7em; margin-bottom: 1em;} .bsatitle {margin-top:0.2em; margin-bottom:0.2em;} .subtitle {color: #bbb; font-weight:normal; font-style:italic; font-family: 'Helvetica'} .mins {color:#000;}</style>")
 print("<title>BART Departures: {} Station</title>".format(station))
 print("</head><body>")
 # prints advisories if setting marked to yes
 if advisory == "yes":
 	if bsa != "No delays reported.":
-		print("<div class='bsa'><i class='fa fa-exclamation-triangle'></i><div style='padding-left: 1em; display:inline; height:100%;'>{}</div></div><br>".format(bsa))
+		print("<div class='bsa'><h3 class='bsatitle'><i class='fa fa-exclamation-triangle'></i> BART Service Advisory</h3>{}</div><br>".format(bsa))
 print("<span class='stationname'>{} Station  </span><i class='fa fa-subway fa-2x'></i>".format(station))
-print("<br><span class='subtitle'>Estimated departure times</span>")
+#print("<br><span class='subtitle'>Estimated departure times</span>")
 #print("<i>Number of directions: {}</i><br>".format(directions))
 print("<br><br>")
 
@@ -84,7 +84,7 @@ for dir in soup.find_all('etd'):
 	if str(minlist[-1]) == "Leaving":
 		minUnits = ""
 	# Print out each destination's ETD
-	print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       {} <span style=\'color:#bbb\'>{}</span></div>".format(color,dest,minDisp,minUnits))
+	print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       <a class='mins'>{}</a> <span style=\'color:#bbb\'>{}</span></div>".format(color,dest,minDisp,minUnits))
 
 # Prints no upcoming service if no estimate provided
 if directions == 0:
@@ -151,4 +151,3 @@ print("""
 """)
 
 print("</body>")
-
