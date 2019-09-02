@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+# Set API key and default station abbreviation code
+apikey = "MW9S-E7SL-26DU-VV8V"
+defaultstation = "EMBR"
+
 import cgi, cgitb, re, sys
 from bs4 import BeautifulSoup
 import urllib.request
@@ -14,7 +18,7 @@ print("<!DOCTYPE html>")
 if form.getvalue("station"):
 	formstation = form.getvalue("station")
 	# validates form
-	stationRE = re.compile(r"^[a-zA-Z0-9]{1,4}$")
+	stationRE = re.compile(r"^[a-zA-Z0-9]{4}$")
 	if not stationRE.match(formstation):
 		print("Content-type: text/html")
 		print("")
@@ -24,10 +28,10 @@ if form.getvalue("station"):
 
 else:
 # Sets default station
-	stationCode = "WARM"
+	stationCode = defaultstation
 
 #print(stationCode)
-apilink = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig={}&key=MW9S-E7SL-26DU-VV8V".format(stationCode)
+apilink = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig={}&key={}".format(stationCode,apikey)
 rawdata = urllib.request.urlopen(apilink).read()
 soup = BeautifulSoup(rawdata, "xml")
 station = soup.find('name').text
@@ -40,7 +44,7 @@ print("<meta name='viewport' content='width=device-width, initial-scale=0.7'>")
 print("<style>body {background:white; font-family: Arial; color: #222; padding: 0.5em;} .bar {border-left-style: solid; border-left-width: 10px; height: 4em;margin-bottom:0.4em; padding-left:0.8em;} .stationname {font-size:1.8em; font-weight: bold;}</style>")
 print("<title>BART Departures: {}</title>".format(station))
 print("</head><body>")
-print("<span class='stationname'>{} station</span><br>".format(station))
+print("<span class='stationname'>{} Station</span><br>".format(station))
 #print("<i>Number of directions: {}</i><br>".format(directions))
 print("Estimated departure times")
 print("<br><br>")
@@ -48,18 +52,34 @@ print("<br><br>")
 for dir in soup.find_all('etd'):
 	color = dir.find('hexcolor').text
 	dest = dir.find('destination').text
+	minUnits = "mins"
 	mins = dir.find_all('minutes')
 	# Creates a list
 	minlist = []
 	# This step important to remove <minutes> tags. Adds clean numbers to list.
 	for min in mins:
 		minlist.append(min.text)
+	# Removes duplicates
+	minlistclean = []
+	for m in minlist:
+		if m not in minlistclean:
+			minlistclean.append(m)
 	# Properly formatted list of minutes
-	minDisp = ', '.join(minlist)
-	print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       {} <span style=\'color:#bbb\'>mins</span></div>".format(color,dest,minDisp))
+	minDisp = ', '.join(minlistclean)
+	# Checks if last ETD in list is "Leaving", to remove trailing "mins"
+	if str(minlist[-1]) == "Leaving":
+		minUnits = ""
+	# Print out each destination's ETD
+	# If color is white, print out canceled train
+	if color == "#ffffff":
+		print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>Canceled train</a><br>       {} <span style=\'color:#bbb\'>{}</span></div>".format(color,minDisp,minUnits))
+	else:
+		print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       {} <span style=\'color:#bbb\'>{}</span></div>".format(color,dest,minDisp,minUnits))
 
+# Prints no upcoming service if no estimate provided
 if directions == 0:
 	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
+
 
 #print(apilink)
 print("<br><br><br><br>")
