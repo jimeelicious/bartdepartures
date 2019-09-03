@@ -1,16 +1,34 @@
 #!/usr/bin/python3
 
-# Set API key and default station abbreviation code
+#################
+# Settings
+#################
+
+# Set API key
 apikey = "MW9S-E7SL-26DU-VV8V"
-defaultstation = "12th"
+
+# Set default station at home page (use station abbreviation)
+defaultstation = "WARM"
+
+# Show service advisories when present
 advisory = "yes"
+
+# Refreshes the board every 45 seconds
+autoref = "no"
+
+# List of stations with ETD disabled
+noetdlist = ["OAKL"]
+
 
 import cgi, cgitb, re, sys
 from bs4 import BeautifulSoup
 import urllib.request
 
+noetdlist = [v.lower() for v in noetdlist]
+defaultstation = str.lower(defaultstation)
 form = cgi.FieldStorage()
 
+# Declare html document
 print("Content-type: text/html")
 print("")
 print("<!DOCTYPE html>")
@@ -18,17 +36,17 @@ print("<!DOCTYPE html>")
 # obtains input from URL
 if form.getvalue("station"):
 	formstation = form.getvalue("station")
-	# validates form
+	# validates station abbreviation is 4 characters
 	stationRE = re.compile(r"^[a-zA-Z0-9]{4}$")
 	if not stationRE.match(formstation):
 		print("Content-type: text/html")
 		print("")
 		print("station: error")
 		sys.exit()
-	stationCode = str(formstation)
+	stationCode = str.lower(formstation)
 
 else:
-# Sets default station
+	# Sets default station
 	stationCode = defaultstation
 
 #print(stationCode)
@@ -46,7 +64,8 @@ if advisory == "yes":
 	bsa = bsasoup.find("description").text
 
 print("<head>")
-print("<meta http-equiv='refresh' content='45'>") 
+if autoref == "yes":
+	print("<meta http-equiv='refresh' content='45'>") 
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
 print("<meta name='viewport' content='width=device-width, initial-scale=0.70'>")
 print("<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>")
@@ -83,11 +102,15 @@ for dir in soup.find_all('etd'):
 	# Checks if last ETD in list is "Leaving", to remove trailing "mins"
 	if str(minlist[-1]) == "Leaving":
 		minUnits = ""
-	# Print out each destination's ETD
-	print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       <a class='mins'>{}</a> <span style=\'color:#bbb\'>{}</span></div>".format(color,dest,minDisp,minUnits))
+	# Print out each destination's ETD if station, if station is not set to disable ETD times (not in 'noetdlist' list)
+	if stationCode not in noetdlist:
+		print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       <a class='mins'>{}</a> <span style=\'color:#bbb\'>{}</span></div>".format(color,dest,minDisp,minUnits))
 
+# If ETD
+if stationCode in noetdlist:
+	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>Unavailable</a><br>        <span style=\'color:#bbb\'>Departure times are unavailable for {} Station.<br>Please refer to the BART time schedule.</span></div>".format(station))
 # Prints no upcoming service if no estimate provided
-if directions == 0:
+elif directions == 0:
 	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
 
 
