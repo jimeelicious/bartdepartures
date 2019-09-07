@@ -60,14 +60,14 @@ if form.getvalue("autorefresh"):
 		sys.exit()
 	autoref = str(formautoref)
 
-#print(stationCode)
+# Collect ETD data via BeautifulSoup, station name, and destinations
 apilink = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig={}&key={}".format(stationCode,apikey)
 rawdata = urllib.request.urlopen(apilink).read()
 soup = BeautifulSoup(rawdata, "xml")
 station = soup.find('name').text
 directions = len(soup.find_all('etd'))
 
-#Collects advisories
+# Collects advisories
 if advisory == "yes":
 	bsaapilink = "https://api.bart.gov/api/bsa.aspx?cmd=bsa&key={}".format(apikey)
 	bsarawdata = urllib.request.urlopen(bsaapilink).read()
