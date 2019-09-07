@@ -8,7 +8,7 @@
 apikey = "MW9S-E7SL-26DU-VV8V"
 
 # Set default station at home page (use station abbreviation)
-defaultstation = "12th"
+defaultstation = "WARM"
 
 # Show service advisories when present
 advisory = "yes"
@@ -26,15 +26,14 @@ import urllib.request
 
 # Lowercases variables in settings
 noetdlist = [v.lower() for v in noetdlist]
-advisory = advisory.lower()
-autoref = autoref.lower()
-defaultstation = str.lower(defaultstation)
+#advisory = advisory.lower()
+#autoref = autoref.lower()
+#defaultstation = str.lower(defaultstation)
 
 # Declare html document
 print("Content-type: text/html")
 print("")
 print("<!DOCTYPE html>")
-
 # obtains input from URL
 form = cgi.FieldStorage()
 if form.getvalue("station"):
@@ -48,7 +47,7 @@ if form.getvalue("station"):
 
 else:
 	# Sets default station
-	stationCode = defaultstation
+	stationCode = defaultstation.lower()
 
 # Takes autorefresh input from HTML, overrides default properties
 if form.getvalue("autorefresh"):
@@ -68,14 +67,14 @@ station = soup.find('name').text
 directions = len(soup.find_all('etd'))
 
 # Collects advisories
-if advisory == "yes":
+if advisory.lower() == "yes":
 	bsaapilink = "https://api.bart.gov/api/bsa.aspx?cmd=bsa&key={}".format(apikey)
 	bsarawdata = urllib.request.urlopen(bsaapilink).read()
 	bsasoup = BeautifulSoup(bsarawdata, "xml")
 	bsa = bsasoup.find_all("description")
 
 print("<head>")
-if autoref == "yes":
+if autoref.lower() == "yes":
 	print("<meta http-equiv='refresh' content='45'>") 
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
 print("<meta name='viewport' content='width=device-width, initial-scale=0.70'>")
@@ -84,7 +83,7 @@ print("<style>body {background:white; font-family: Arial; color: #222; padding: 
 print("<title>BART Departures: {} Station</title>".format(station))
 print("</head><body>")
 # prints advisories if setting marked to yes
-if advisory == "yes":
+if advisory.lower() == "yes":
 	if "No delays reported." not in bsa[0]:
 		print("<div class='bsa'><h3 class='bsatitle'><i class='fa fa-exclamation-triangle'></i> BART Service Advisory</h3>")
 		for bsamsg in bsa:
