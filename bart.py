@@ -8,7 +8,7 @@
 apikey = "MW9S-E7SL-26DU-VV8V"
 
 # Set default station at home page (use station abbreviation)
-defaultstation = "WARM"
+defaultstation = "12th"
 
 # Show service advisories when present
 advisory = "yes"
