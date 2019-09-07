@@ -20,13 +20,15 @@ autoref = "no"
 noetdlist = ["OAKL"]
 
 
-import cgi, cgitb, re, sys
 from bs4 import BeautifulSoup
+import cgi, cgitb, re, sys
 import urllib.request
 
+# Lowercases variables in settings
 noetdlist = [v.lower() for v in noetdlist]
+advisory = advisory.lower()
+autoref = autoref.lower()
 defaultstation = str.lower(defaultstation)
-form = cgi.FieldStorage()
 
 # Declare html document
 print("Content-type: text/html")
@@ -34,6 +36,7 @@ print("")
 print("<!DOCTYPE html>")
 
 # obtains input from URL
+form = cgi.FieldStorage()
 if form.getvalue("station"):
 	formstation = form.getvalue("station")
 	# validates station abbreviation is 4 characters
@@ -82,7 +85,7 @@ print("<title>BART Departures: {} Station</title>".format(station))
 print("</head><body>")
 # prints advisories if setting marked to yes
 if advisory == "yes":
-	if bsa != "No delays reported.":
+	if "No delays reported." not in bsa[0]:
 		print("<div class='bsa'><h3 class='bsatitle'><i class='fa fa-exclamation-triangle'></i> BART Service Advisory</h3>")
 		for bsamsg in bsa:
 			print("<p class='bsamsg'>{}</p>".format(bsamsg.text))
