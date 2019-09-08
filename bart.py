@@ -26,9 +26,9 @@ import urllib.request
 
 # Lowercases variables in settings
 noetdlist = [v.lower() for v in noetdlist]
-#advisory = advisory.lower()
-#autoref = autoref.lower()
-#defaultstation = str.lower(defaultstation)
+advisory = advisory.lower()
+autoref = autoref.lower()
+defaultstation = str.lower(defaultstation)
 
 # Declare html document
 print("Content-type: text/html")
@@ -79,7 +79,7 @@ if autoref.lower() == "yes":
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
 print("<meta name='viewport' content='width=device-width, initial-scale=0.70'>")
 print("<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>")
-print("<style>body {background:white; font-family: Arial; color: #222; padding: 0.5em;} .bar {border-left-style: solid; border-left-width: 10px; height: 4em;margin-bottom:0.4em; padding-left:0.8em;} .stationname {font-size:1.8em; font-weight: bold; white-space:pre;} .bsa {background-color: #fff200; color: black; padding: 0.5em 1em; padding-bottom: 0.7em; margin-bottom: 1em;} .bsatitle {margin-top:0.2em; margin-bottom:0.2em;} .subtitle {color: #bbb; font-weight:normal; font-style:italic; font-family: 'Helvetica'} .mins {color:#000;} .bsamsg {margin-bottom: 0.2em;} </style>")
+print("<style>body {background:white; font-family: Arial; color: #222; padding: 0.5em;} .bar {border-left-style: solid; border-left-width: 10px; height: 4em;margin-bottom:0.4em; padding-left:0.8em;} .stationname {font-size:1.8em; font-weight: bold; white-space:pre;} .bsa {background-color: #fff200; color: black; padding: 0.5em 1em; padding-bottom: 0.7em; margin-bottom: 1em; border-radius: 0.7em;} .bsatitle {margin-top:0.2em; margin-bottom:0.2em;} .subtitle {color: #bbb; font-weight:normal; font-style:italic; font-family: 'Helvetica'} .mins {color:#000;} .bsamsg {margin-bottom: 0.2em;} </style>")
 print("<title>BART Departures: {} Station</title>".format(station))
 print("</head><body>")
 # prints advisories if setting marked to yes
