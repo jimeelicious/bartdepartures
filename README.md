@@ -1,5 +1,5 @@
 # INTRODUCTION
-This program is a BART departure signboard that is run on a web server using cgi-bin and python. It uses the BART API to obtain real-time data and can be served on any browser. It was originally designed to be similar to a clean departure signboard
+This program is a BART departure signboard that is run on a web server using cgi-bin and python. It uses the BART API to obtain real-time data and can be served on any browser and was originally designed to be similar to a simple, clean departure signboard.
 
 ![(Screenshot](img/preview.png)
 
