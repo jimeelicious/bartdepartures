@@ -1,7 +1,9 @@
 # INTRODUCTION
-This program is a BART departure signboard that is run on a web server using cgi-bin and python. It uses the BART API to obtain real-time data and can be served on any browser. It was originally designed to be similar to a clean departure signboard. 
+This program is a BART departure signboard that is run on a web server using cgi-bin and python. It uses the BART API to obtain real-time data and can be served on any browser. It was originally designed to be similar to a clean departure signboard
 
 ![(Screenshot](img/preview.png)
+
+It also removes duplicate trains from the BART API, which the official BART app does not do, and accurately reflects an actual departure signboard.
 
 ### Why?
 Why not? BART's official app takes a while to load, and it's better to pull of a web page yourself. The advantage of a web app is that many computers have web browsers, which increases the accessibility for many people. This project was originally designed for me to improve my Python abilities, but also to learn about BeautifulSoup. Feel free to edit the code yourself to fit your needs.
