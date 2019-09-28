@@ -1,3 +1,8 @@
+
+
+
+
+
 # BART Departures
 [![HitCount](http://hits.dwyl.com/jimeelicious/bartdepartures.svg)](http://hits.dwyl.com/jimeelicious/bartdepartures) ![Intro](img/times.png) BART Departures is an easily deployable, mobile-ready, Python-based program running on 
 a web server that displays [BART](bart.gov) train departure times at any given station. This program was designed to resemble a hybrid of an actual departure signboard and the 511.org application.
@@ -16,6 +21,7 @@ project was originally designed for me to improve my Python abilities, but also 
 - Cleans up duplicate train times from the API - Better depicts an actual signboard vs. the official BART app.
    
 ### *Easily customizable*
+
 ```
 # Set API key
 apikey = "MW9S-E7SL-26DU-VV8V"
@@ -24,7 +30,9 @@ defaultstation = "12th"
 # Show service advisories when present
 advisory = "yes"
 # Refreshes the board every 45 seconds
-autoref = "no" ``` The default landing page can be set to fir your needs
+autoref = "no" 
+``` 
+The default landing page can be set to fit your needs
   
 # **Live example**
 Click [here](https://live.homelab.app) to view a working example of the program running. ![Intro](img/screenshot.png)
