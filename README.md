@@ -36,12 +36,17 @@ The default landing page can be set to fit your needs
   
 # **Live example**
 Click [here](https://live.homelab.app) to view a working example of the program running. ![Intro](img/screenshot.png)
-# **How To** Features
-### Autorefresh
-The page is designed to automatically refresh if set in the *bart.py* code. Its setting can be overriden by attaching the variable `autorefresh` to `yes` or `no`. In other words, attach `?autorefresh=yes` to the end of the URL to 
-force the page to autorefresh, such as `example.com/?autorefresh=yes`. If the variable is not the first in the URL, replace the `?` with a `&`, such as `example.com/?station=sfia&autorefresh=yes`.
+# **How To**
+### Autorefresh settings
+The page is designed to automatically refresh if set in the *bart.py* code. 
+
+This setting can be overriden by attaching the variable `autorefresh` to `yes` or `no`. In other words, attach `?autorefresh=yes` to the end of the URL to force the page to autorefresh, such as `example.com/?autorefresh=yes`. If the variable is not the first in the URL, replace the `?` with a `&`, such as `example.com/?station=sfia&autorefresh=yes`.
+
 ### Manual station selection
-In the code, there is a section that enables you to select a different station on the HTML page. Or you can simply add `station` variable in the URL followed by the 4-alphanumberic station code. A full list of the BART station 
+In the code, there is a section that enables you to select a different station on the default home page. 
+
+For a quick look at another station, use the dropdown form on the page, or you can simply add `station` variable in the URL followed by the 4-alphanumberic station code. A full list of the BART station 
 codes are available [here](http://api.bart.gov/docs/overview/abbrev.aspx). Example: `example.com/?station=EMBR` or `example.com/?autorefresh=yes&station=24th`
+
 ### Defaults
 You can set the main homepage to default to your desired settings mentioned above in the code itself. Edit variables in the *bart.py* code to set your defaults.
