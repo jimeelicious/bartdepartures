@@ -9,7 +9,7 @@
 ![Intro](img/times.png) 
 
 BART Departures is an easily deployable, mobile-ready, Python-based program running on 
-a web server that displays [BART](bart.gov) train departure times at any given station. This program was designed to resemble a hybrid of an actual departure signboard and the 511.org application.
+a web server that displays [BART](https://www.bart.gov) train departure times at any given station. This program was designed to resemble a hybrid of an actual departure signboard and the 511.org application.
 
 ### Why?
 Why not? BART's official app takes a while to load, and it's better to pull of a web page yourself. The advantage of a web app is that many computers have web browsers, which increases the accessibility for many people. This 
