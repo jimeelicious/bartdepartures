@@ -8,13 +8,13 @@
 apikey = "MW9S-E7SL-26DU-VV8V"
 
 # Set default station at home page (use station abbreviation)
-defaultstation = "12th"
+defaultstation = "EMBR"
 
 # Show service advisories when present
 advisory = "yes"
 
 # Refreshes the board every 45 seconds
-autoref = "no"
+autoref = "yes"
 
 # List of stations with ETD disabled
 noetdlist = ["OAKL"]
@@ -130,7 +130,7 @@ elif directions == 0:
 print("<br><br><br><br>")
 
 print("""
-<form id="station" name="form" method="get" action="/">
+<form id="station" name="form" method="get" action="/" style="display:inline;">
 <select name="station" onchange="this.form.submit()">
           <option value="" disabled selected>Select another station...</option>
           <option value="12th">12th St. Oakland City Center</option>
@@ -181,6 +181,18 @@ print("""
           <option value="wcrk">Walnut Creek</option>
           <option value="wdub">West Dublin</option>
           <option value="woak">West Oakland</option>
-</select></form>""")
+</select></form>
+<button onclick="myFunction()">Show Map</button>
+<div id="map" style="display:none;"><br><br><img style="width:100%; max-width:1000px;" src="https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png"></div>
+<script>
+function myFunction() {
+  var x = document.getElementById("map");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>""")
 
 print("</body>")
