@@ -5,6 +5,7 @@
 
 # BART Departures
 [![HitCount](http://hits.dwyl.com/jimeelicious/bartdepartures.svg)](http://hits.dwyl.com/jimeelicious/bartdepartures) 
+
 ![Intro](img/times.png) 
 
 BART Departures is an easily deployable, mobile-ready, Python-based program running on 
