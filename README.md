@@ -20,7 +20,8 @@ project was originally designed for me to improve my Python abilities, but also 
    - Access from any web-browser
    - Bookmarkable links for stations
 ### *Real time service alerts*
-   ![Alert example](img/alerts.png) Advisories are prominently displayed on the top to warn of any possible service delays or cancelations. Each advisory is displayed as a separate entry.
+   ![Alert example](img/alerts.png)
+Advisories are prominently displayed on the top to warn of any possible service delays or cancelations. Each advisory is displayed as a separate entry.
 ### *Autoupdate*
 - Data is pulled every 45 seconds from the official [BART API](https://api.bart.gov).
 ### *Removal of Duplicates*

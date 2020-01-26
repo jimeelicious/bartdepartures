@@ -8,13 +8,13 @@
 apikey = "MW9S-E7SL-26DU-VV8V"
 
 # Set default station at home page (use station abbreviation)
-defaultstation = "EMBR"
+defaultstation = "12th"
 
 # Show service advisories when present
 advisory = "yes"
 
 # Refreshes the board every 45 seconds
-autoref = "yes"
+autoref = "no"
 
 # List of stations with ETD disabled
 noetdlist = ["OAKL"]
@@ -33,7 +33,10 @@ defaultstation = str.lower(defaultstation)
 # Declare html document
 print("Content-type: text/html")
 print("")
-print("<!DOCTYPE html>")
+print("""<!DOCTYPE html>
+
+<head>""")
+
 # obtains input from URL
 form = cgi.FieldStorage()
 if form.getvalue("station"):
@@ -73,7 +76,6 @@ if advisory.lower() == "yes":
 	bsasoup = BeautifulSoup(bsarawdata, "xml")
 	bsa = bsasoup.find_all("description")
 
-print("<head>")
 if autoref.lower() == "yes":
 	print("<meta http-equiv='refresh' content='45'>") 
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
