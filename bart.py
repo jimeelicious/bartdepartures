@@ -127,7 +127,7 @@ if stationCode in noetdlist:
 	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-alarm-exclamation fa-3x\' style=\'top:0.2em; left:0.2em; position:relative; color:#777;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>Unavailable</a><br>        <span style=\'color:#bbb\'>Departure times are unavailable for {} Station.<br>Please refer to the BART time schedule.</span></div>".format(station))
 # Prints no upcoming service if no estimate provided
 elif directions == 0:
-	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-times fa-3x\' style=\'top:0.2em; left:0.3em; position:relative; color:#ab040c;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
+	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-times fa-3x\' style=\'left:0.3em; position:relative; color:#ab040c;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
 
 
 print("<br><br><br><br>")
