@@ -35,7 +35,8 @@ print("Content-type: text/html")
 print("")
 print("""<!DOCTYPE html>
 
-<head>""")
+<head>
+<link rel="shortcut icon" href="https://www.bart.gov/sites/all/themes/bart/favicon.ico" type="image/vnd.microsoft.icon" />""")
 
 # obtains input from URL
 form = cgi.FieldStorage()
@@ -77,7 +78,7 @@ if advisory.lower() == "yes":
 	bsa = bsasoup.find_all("description")
 
 if autoref.lower() == "yes":
-	print("<meta http-equiv='refresh' content='45'>") 
+	print("<meta http-equiv='refresh' content='45'>")
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
 print("<meta name='viewport' content='width=device-width, initial-scale=0.70'>")
 print("<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>")
@@ -123,10 +124,10 @@ for dir in soup.find_all('etd'):
 
 # If station in do not display etd list, print this message
 if stationCode in noetdlist:
-	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>Unavailable</a><br>        <span style=\'color:#bbb\'>Departure times are unavailable for {} Station.<br>Please refer to the BART time schedule.</span></div>".format(station))
+	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-alarm-exclamation fa-3x\' style=\'top:0.2em; left:0.2em; position:relative; color:#777;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>Unavailable</a><br>        <span style=\'color:#bbb\'>Departure times are unavailable for {} Station.<br>Please refer to the BART time schedule.</span></div>".format(station))
 # Prints no upcoming service if no estimate provided
 elif directions == 0:
-	print("<div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
+	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-times fa-3x\' style=\'top:0.2em; left:0.3em; position:relative; color:#ab040c;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
 
 
 print("<br><br><br><br>")
