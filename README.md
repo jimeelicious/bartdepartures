@@ -16,6 +16,10 @@ Why not? BART's official app takes a while to load, and it's better to pull of a
 project was originally designed for me to improve my Python abilities, but also to learn about BeautifulSoup. Feel free to edit the code yourself to fit your needs.
 
 # **Features**
+### *Themes*
+   - Black and white themes
+   ![Themes](img/themes.png)
+
 ### *Accessibility*
    - Access from any web-browser
    - Bookmarkable links for stations
@@ -24,7 +28,7 @@ project was originally designed for me to improve my Python abilities, but also 
 
 Advisories are prominently displayed on the top to warn of any possible service delays or cancelations. Each advisory is displayed as a separate entry.
 ### *Autoupdate*
-- Data is pulled every 45 seconds from the official [BART API](https://api.bart.gov).
+- Data is pulled every 15 seconds from the official [BART API](https://api.bart.gov).
 ### *Removal of Duplicates*
 - Cleans up duplicate train times from the API - Better depicts an actual signboard vs. the official BART app.
   
@@ -34,6 +38,8 @@ Advisories are prominently displayed on the top to warn of any possible service 
 apikey = "MW9S-E7SL-26DU-VV8V"
 # Default station at home page (station abbreviation)
 defaultstation = "12th"
+# Change the theme
+theme = "white"
 # Show service advisories when present
 advisory = "yes"
 # Refreshes the board every 45 seconds
