@@ -10,10 +10,13 @@ apikey = "MW9S-E7SL-26DU-VV8V"
 # Set default station at home page (use station abbreviation)
 defaultstation = "12th"
 
+# Theme values 'white' or 'black'
+theme = "black"
+
 # Show service advisories when present
 advisory = "yes"
 
-# Refreshes the board every 45 seconds
+# Refreshes the board every 15 seconds
 autoref = "no"
 
 # List of stations with ETD disabled
@@ -53,6 +56,20 @@ else:
 	# Sets default station
 	stationCode = defaultstation.lower()
 
+# Obtains theme if provided
+if form.getvalue("theme"):
+        # notes the default theme
+        themeDefault = theme
+        theme = str.lower(form.getvalue("theme"))
+        # Validates input
+        themeRE = re.compile(r"^black$|^white$")
+        if not themeRE.match(theme):
+                # use the default theme
+                theme = themeDefault
+        else:
+                # use validated values for theme
+                theme = str.lower(form.getvalue("theme"))
+
 # Takes autorefresh input from HTML, overrides default properties
 if form.getvalue("autorefresh"):
 	formautoref = str.lower(form.getvalue("autorefresh"))
@@ -78,11 +95,11 @@ if advisory.lower() == "yes":
 	bsa = bsasoup.find_all("description")
 
 if autoref.lower() == "yes":
-	print("<meta http-equiv='refresh' content='45'>")
+	print("<meta http-equiv='refresh' content='15'>")
 print("<meta name='og:description' content='Estimated departure times for BART'><meta name='og:image' content='https://511contracosta.org/wp-content/uploads/2010/07/BART-logo-large.jpg'>")
-print("<meta name='viewport' content='width=device-width, initial-scale=0.70'>")
+print("<meta name='viewport' content='width=device-width, initial-scale=1'>")
+print("<link rel='stylesheet' href='lib/{}.css'>".format(theme))
 print("<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>")
-print("<style>body {background:white; font-family: Arial; color: #222; padding: 0.5em;} .bar {border-left-style: solid; border-left-width: 10px; height: 4em;margin-bottom:0.4em; padding-left:0.8em;} .stationname {font-size:1.8em; font-weight: bold; white-space:pre;} .bsa {background-color: #fff200; color: black; padding: 0.5em 1em; padding-bottom: 0.7em; margin-bottom: 1em; border-radius: 0.7em;} .bsatitle {margin-top:0.2em; margin-bottom:0.2em;} .subtitle {color: #bbb; font-weight:normal; font-style:italic; font-family: 'Helvetica'} .mins {color:#000;} .bsamsg {margin-bottom: 0.2em;} </style>")
 print("<title>BART Departures: {} Station</title>".format(station))
 print("</head><body>")
 # prints advisories if setting marked to yes
@@ -92,7 +109,7 @@ if advisory.lower() == "yes":
 		for bsamsg in bsa:
 			print("<p class='bsamsg'>{}</p>".format(bsamsg.text))
 		print("</div>")
-print("<span class='stationname'>{} Station  </span><i class='fa fa-subway fa-2x'></i>".format(station))
+print("<span class='stationname'>{} Station  </span><i class='fa fa-subway fa-2x station-icon'></i>".format(station))
 #print("<br><span class='subtitle'>Estimated departure times</span>")
 #print("<i>Number of directions: {}</i><br>".format(directions))
 print("<br><br>")
@@ -120,21 +137,21 @@ for dir in soup.find_all('etd'):
 		minUnits = ""
 	# Print out each destination's ETD if station, if station is not set to disable ETD times (not in 'noetdlist' list)
 	if stationCode not in noetdlist:
-		print("<div class=\'bar\' style=\'border-left-color:{};\'><a style=\'font-weight: bold; font-size: 1.5em;\'>{}</a><br>       <a class='mins'>{}</a> <span style=\'color:#bbb\'>{}</span></div>".format(color,dest,minDisp,minUnits))
+		print("<div class=\'bar\' style=\'border-left-color:{};\'><a class=\'destination\'>{}</a><br>       <a class='mins-num'>{}</a> <span class=\'mins\'>{}</span></div>".format(color,dest,minDisp,minUnits))
 
 # If station in do not display etd list, print this message
 if stationCode in noetdlist:
-	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-alarm-exclamation fa-3x\' style=\'top:0.2em; left:0.2em; position:relative; color:#777;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>Unavailable</a><br>        <span style=\'color:#bbb\'>Departure times are unavailable for {} Station.<br>Please refer to the BART time schedule.</span></div>".format(station))
+	print("<div class=\'icon-container\'><i class=\'fa fa-exclamation-circle fa-3x no-etd-icon\'></i></div><div class=\'no-bar\'><a class=\'no-service-msg\'>Unavailable</a><br>        <span class=\'no-service-details\'>Departure times are unavailable for {} Station.<br>Please refer to the BART time schedule.</span></div>".format(station))
 # Prints no upcoming service if no estimate provided
 elif directions == 0:
-	print("<div style=\'border-left-color:white; height:64px;width:75px; float:left;\'><i class=\'fa fa-times fa-3x\' style=\'left:0.3em; position:relative; color:#ab040c;\'></i></div><div class=\'bar\' style=\'border-left-color:white;\'><a style=\'font-weight: bold; font-size: 1.5em;\'>No service</a><br>        <span style=\'color:#bbb\'>There are no upcoming departures at this time</span></div>")
+	print("<div class=\'icon-container\'><i class=\'fa fa-times fa-3x no-service-icon\'></i></div><div class=\'no-bar\'><a class=\'no-service-msg'>No service</a><br>        <span class=\'no-service-details\'>There are no upcoming departures at this time</span></div>")
 
 
 print("<br><br><br><br>")
 
 print("""
-<form id="station" name="form" method="get" action="/" style="display:inline;">
-<select name="station" onchange="this.form.submit()">
+<form id="station" name="form" method="get" action="/" class="form">
+<select class="select-bar" name="station" onchange="this.form.submit()">
           <option value="" disabled selected>Select another station...</option>
           <option value="12th">12th St. Oakland City Center</option>
           <option value="16th">16th St. Mission (SF)</option>
@@ -185,8 +202,8 @@ print("""
           <option value="wdub">West Dublin</option>
           <option value="woak">West Oakland</option>
 </select></form>
-<button onclick="myFunction()">Show Map</button>
-<div id="map" style="display:none;"><br><br><img style="width:100%; max-width:1000px;" src="https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png"></div>
+<button class="map-button" onclick="myFunction()">Show Map</button>
+<div id="map" style="display:none;"><br><br><img class="bart-map" src="https://www.bart.gov/sites/default/files/images/basic_page/system-map-weekday.png"></div>
 <script>
 function myFunction() {
   var x = document.getElementById("map");
