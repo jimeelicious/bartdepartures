@@ -181,8 +181,8 @@ print("""
           <option value="lake">Lake Merritt (Oakland)</option>
           <option value="mcar">MacArthur (Oakland)</option>
           <option value="mlbr">Millbrae</option>
-          <option value="mlpt">Milpitas</option>
-          <option value="mont" disabled>Montgomery St. (SF)</option>
+          <option value="mlpt" disabled>Milpitas</option>
+          <option value="mont">Montgomery St. (SF)</option>
           <option value="nbrk">North Berkeley</option>
           <option value="ncon">North Concord/Martinez</option>
           <option value="oakl">Oakland Int'l Airport</option>
