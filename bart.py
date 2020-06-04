@@ -87,6 +87,10 @@ soup = BeautifulSoup(rawdata, "xml")
 station = soup.find('name').text
 directions = len(soup.find_all('etd'))
 
+# Corrects Berryessa station name
+if "berryessa" in station.lower():
+        station = "Berryessa/North San Jos&#233;"
+
 # Collects advisories
 if advisory.lower() == "yes":
 	bsaapilink = "https://api.bart.gov/api/bsa.aspx?cmd=bsa&key={}".format(apikey)
@@ -161,7 +165,7 @@ print("""
           <option value="antc">Antioch</option>
           <option value="balb">Balboa Park (SF)</option>
           <option value="bayf">Bay Fair (San Leandro)</option>
-          <option value="bery" disabled>Berryessa/North San Jose</option>
+          <option value="bery">Berryessa/North San Jose</option>
           <option value="cast">Castro Valley</option>
           <option value="civc">Civic Center (SF)</option>
           <option value="cols">Coliseum</option>
@@ -181,7 +185,7 @@ print("""
           <option value="lake">Lake Merritt (Oakland)</option>
           <option value="mcar">MacArthur (Oakland)</option>
           <option value="mlbr">Millbrae</option>
-          <option value="mlpt" disabled>Milpitas</option>
+          <option value="mlpt">Milpitas</option>
           <option value="mont">Montgomery St. (SF)</option>
           <option value="nbrk">North Berkeley</option>
           <option value="ncon">North Concord/Martinez</option>
