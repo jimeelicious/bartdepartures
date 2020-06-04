@@ -80,14 +80,19 @@ if form.getvalue("autorefresh"):
 		sys.exit()
 	autoref = str(formautoref)
 
-# Collect ETD data via BeautifulSoup, station name, and destinations
+# Collect ETD data via BeautifulSoup
 apilink = "https://api.bart.gov/api/etd.aspx?cmd=etd&orig={}&key={}".format(stationCode,apikey)
 rawdata = urllib.request.urlopen(apilink).read()
 soup = BeautifulSoup(rawdata, "xml")
+
+# Exit script if error in 4-letter station code
+if "invalid" in soup.find('message').text:
+        print("Invalid station code. Please use the drop down menu to select a station.")
+        sys.exit()
+
+# Finds station and ETDs, and corrects Berryessa station name
 station = soup.find('name').text
 directions = len(soup.find_all('etd'))
-
-# Corrects Berryessa station name
 if "berryessa" in station.lower():
         station = "Berryessa/North San Jos&#233;"
 
